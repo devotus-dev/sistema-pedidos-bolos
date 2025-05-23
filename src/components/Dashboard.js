@@ -17,7 +17,6 @@ export default function Dashboard() {
   const [pedidosReceber, setPedidosReceber] = useState(0);
   const [valorReceber, setValorReceber] = useState(0);
 
-  // 🔥 Busca pedidos em tempo real
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "pedidos"), (snapshot) => {
       const pedidosData = snapshot.docs.map((doc) => ({
@@ -29,7 +28,6 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, []);
 
-  // 🔥 Busca promoções
   useEffect(() => {
     async function fetchPromocoes() {
       const snap = await getDocs(collection(db, "promocoes"));
@@ -42,7 +40,6 @@ export default function Dashboard() {
     fetchPromocoes();
   }, []);
 
-  // 🔥 Filtrar pedidos pela data
   const pedidosFiltrados = pedidos.filter((pedido) => {
     const data = pedido.dataEntrega;
     if (!data) return false;
@@ -53,7 +50,6 @@ export default function Dashboard() {
     );
   });
 
-  // 🔥 Calcula totais
   useEffect(() => {
     const calcularTotalPedido = (pedido) => {
       if (!pedido.itens) return 0;
@@ -92,7 +88,6 @@ export default function Dashboard() {
     setValorReceber(somaReceber);
   }, [pedidosFiltrados, promocoes]);
 
-  // 🔥 Formata valor em reais
   function formatarReais(valor) {
     return valor.toLocaleString("pt-BR", {
       style: "currency",
