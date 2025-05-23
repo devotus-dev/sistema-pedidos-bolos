@@ -1,24 +1,24 @@
-// 🔥 Importações do Firebase necessárias
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
-// 🔥 Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC36-Ueup1X1vZDzo4WcANsbQeU15RjBPI",
   authDomain: "fornomagico2025.firebaseapp.com",
   projectId: "fornomagico2025",
-  storageBucket: "fornomagico2025.appspot.com", // ✔️ Corrigido
+  storageBucket: "fornomagico2025.appspot.com", // ✅ CORRIGIDO AQUI
   messagingSenderId: "724913845318",
   appId: "1:724913845318:web:7aad5a497cfb9a87ea4647",
+  measurementId: "G-56B4HSZC4N"
 };
 
-// 🔥 Inicializa o app Firebase
+// 🔥 Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 
-// 🔥 Exporta Firestore e Auth para uso na aplicação
+// 🔥 Serviços
 export const db = getFirestore(app);
-export const auth = getAuth(app); // ✔️ Exporta Auth pra login/autenticação
+export const auth = getAuth(app);
+export const analytics = getAnalytics(app);
 
-// ✔️ Exporta o app caso precise usar
 export default app;
