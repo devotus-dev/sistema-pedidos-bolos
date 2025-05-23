@@ -9,7 +9,7 @@ export default function PedidoCliente() {
     telefone: "",
     endereco: "",
     observacoes: "",
-    dataEntrega: "", // ✅ Sem data automática
+    dataEntrega: "",
   });
 
   const [itens, setItens] = useState([]);
@@ -18,7 +18,6 @@ export default function PedidoCliente() {
   const [carrinho, setCarrinho] = useState([]);
   const [promocoes, setPromocoes] = useState({});
 
-  // 🔥 Buscar itens e promoções
   useEffect(() => {
     async function fetchData() {
       const itensSnapshot = await getDocs(collection(db, "itens"));
@@ -26,7 +25,16 @@ export default function PedidoCliente() {
         id: doc.id,
         ...doc.data(),
       }));
-      setItens(listaItens);
+
+      // 🔥 Ordenar por categoria: Mini > G > Vulcao
+      const ordemCategorias = ["Mini", "G", "Vulcao"];
+      const listaItensOrdenada = listaItens.sort(
+        (a, b) =>
+          ordemCategorias.indexOf(a.categoria) -
+          ordemCategorias.indexOf(b.categoria)
+      );
+
+      setItens(listaItensOrdenada);
 
       const categorias = ["Mini", "G", "Vulcao"];
       const promocoesData = {};
@@ -206,14 +214,22 @@ export default function PedidoCliente() {
         required
         className="border rounded px-3 py-2 w-full"
       />
-      <input
-        type="date"
-        name="dataEntrega"
-        value={pedido.dataEntrega}
-        onChange={handleChange}
-        required
-        className="border rounded px-3 py-2 w-full"
-      />
+
+      {/* 🔥 Label para a data */}
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium text-gray-700">
+          Data de entrega
+        </label>
+        <input
+          type="date"
+          name="dataEntrega"
+          value={pedido.dataEntrega}
+          onChange={handleChange}
+          required
+          className="border rounded px-3 py-2 w-full"
+        />
+      </div>
+
       <textarea
         name="observacoes"
         value={pedido.observacoes}
