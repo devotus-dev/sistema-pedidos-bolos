@@ -1,23 +1,44 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Node modules
+/node_modules/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Build output
+/build/
+/dist/
 
-# testing
-/coverage
+# Firebase
+.firebase/
+firebase-debug.log
+serviceAccountKey*.json
 
-# production
-/build
-
-# misc
-.DS_Store
+# Local env files
+.env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Coverage reports
+/coverage/
+
+# Misc
+.pnp
+.pnp.js
+
+# Public uploads (se salvar imagens locais)
+/public/uploads/
